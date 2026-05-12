@@ -1,0 +1,129 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:fillViewport="true"
+    android:background="#FFFFFF">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="24dp">
+
+        <TextView
+            android:id="@+id/tvRegisterTitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Buat Akun Baru"
+            android:textSize="28sp"
+            android:textStyle="bold"
+            android:textColor="#2E7D32"
+            android:layout_marginTop="32dp"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent" />
+
+        <TextView
+            android:id="@+id/tvRegisterSubtitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Lengkapi data di bawah ini"
+            android:textSize="14sp"
+            android:textColor="#757575"
+            android:layout_marginTop="8dp"
+            app:layout_constraintTop_toBottomOf="@id/tvRegisterTitle"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent" />
+
+        <EditText
+            android:id="@+id/etNamaLengkap"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:hint="Nama Lengkap"
+            android:textColor="#333333"
+            android:textColorHint="#999999"
+            android:background="#F5F5F5"
+            android:padding="12dp"
+            android:layout_marginTop="32dp"
+            app:layout_constraintTop_toBottomOf="@id/tvRegisterSubtitle" />
+
+        <EditText
+            android:id="@+id/etRegUsername"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:hint="Username"
+            android:textColor="#333333"
+            android:textColorHint="#999999"
+            android:background="#F5F5F5"
+            android:padding="12dp"
+            android:layout_marginTop="16dp"
+            app:layout_constraintTop_toBottomOf="@id/etNamaLengkap" />
+
+        <EditText
+            android:id="@+id/etRegPassword"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:hint="Password"
+            android:textColor="#333333"
+            android:textColorHint="#999999"
+            android:inputType="textPassword"
+            android:background="#F5F5F5"
+            android:padding="12dp"
+            android:layout_marginTop="16dp"
+            app:layout_constraintTop_toBottomOf="@id/etRegUsername" />
+
+        <EditText
+            android:id="@+id/etRegPasswordConfirm"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:hint="Ulangi Password"
+            android:inputType="textPassword"
+            android:textColor="#333333"
+            android:textColorHint="#999999"
+            android:background="#F5F5F5"
+            android:padding="12dp"
+            android:layout_marginTop="16dp"
+            app:layout_constraintTop_toBottomOf="@id/etRegPassword" />
+
+        <Button
+            android:id="@+id/btnRegister"
+            android:layout_width="match_parent"
+            android:layout_height="55dp"
+            android:text="DAFTAR SEKARANG"
+            android:backgroundTint="#2E7D32"
+            android:textColor="#FFFFFF"
+            android:textStyle="bold"
+            android:layout_marginTop="32dp"
+            app:layout_constraintTop_toBottomOf="@id/etRegPasswordConfirm" />
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_marginTop="24dp"
+            android:layout_marginBottom="24dp"
+            app:layout_constraintTop_toBottomOf="@id/btnRegister"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Sudah punya akun? "
+                android:textColor="#757575"
+                android:textSize="14sp" />
+
+            <TextView
+                android:id="@+id/tvBackToLogin"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Login di sini"
+                android:textColor="#2E7D32"
+                android:textStyle="bold"
+                android:textSize="14sp" />
+        </LinearLayout>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</ScrollView>

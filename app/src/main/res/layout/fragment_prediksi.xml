@@ -1,0 +1,132 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#F5F5F5">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="24dp">
+
+        <com.google.android.material.card.MaterialCardView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:cardCornerRadius="12dp"
+            app:cardBackgroundColor="#E8F5E9"
+            app:strokeWidth="1dp"
+            app:strokeColor="#2E7D32"
+            android:layout_marginBottom="24dp">
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:padding="16dp">
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Harga Pasaran Saat Ini"
+                    android:textColor="#2E7D32"
+                    android:textSize="14sp" />
+                <TextView
+                    android:id="@+id/tvHargaPasar"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Rp 2.450 / Kg"
+                    android:textColor="#2E7D32"
+                    android:textSize="24sp"
+                    android:textStyle="bold" />
+            </LinearLayout>
+        </com.google.android.material.card.MaterialCardView>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Masukkan Variabel Prediksi"
+            android:textStyle="bold"
+            android:textSize="16sp"
+            android:layout_marginBottom="16dp"/>
+
+        <EditText
+            android:id="@+id/etUmurTanaman"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:hint="Umur Tanaman (Tahun)"
+            android:textColor="#333333"
+            android:textColorHint="#999999"
+            android:inputType="number"
+            android:background="@android:drawable/edit_text"
+            android:padding="12dp"
+            android:layout_marginBottom="12dp"/>
+
+        <EditText
+            android:id="@+id/etIndeksK"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:hint="Indeks K (%)"
+            android:textColor="#333333"
+            android:textColorHint="#999999"
+            android:inputType="numberDecimal"
+            android:background="@android:drawable/edit_text"
+            android:padding="12dp"
+            android:layout_marginBottom="12dp"/>
+
+        <EditText
+            android:id="@+id/etHargaCPO"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:hint="Harga CPO (Rp)"
+            android:textColor="#333333"
+            android:textColorHint="#999999"
+            android:inputType="number"
+            android:background="@android:drawable/edit_text"
+            android:padding="12dp"
+            android:layout_marginBottom="24dp"/>
+
+        <Button
+            android:id="@+id/btnHitung"
+            android:layout_width="match_parent"
+            android:layout_height="55dp"
+            android:text="HITUNG PREDIKSI"
+            android:backgroundTint="#2E7D32"/>
+
+        <LinearLayout
+            android:id="@+id/layoutHasil"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:visibility="gone"
+            android:layout_marginTop="24dp">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Hasil Prediksi Harga TBS:"
+                android:gravity="center"
+                android:textSize="16sp"/>
+
+            <TextView
+                android:id="@+id/tvHasilPrediksi"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Rp 0"
+                android:gravity="center"
+                android:textColor="#2E7D32"
+                android:textSize="32sp"
+                android:textStyle="bold"
+                android:layout_marginBottom="16dp"/>
+
+            <Button
+                android:id="@+id/btnSimpan"
+                style="@style/Widget.MaterialComponents.Button.OutlinedButton"
+                android:layout_width="match_parent"
+                android:layout_height="55dp"
+                android:text="SIMPAN KE RIWAYAT"
+                app:strokeColor="#2E7D32"
+                android:textColor="#2E7D32"/>
+        </LinearLayout>
+
+    </LinearLayout>
+</ScrollView>
