@@ -1,132 +1,214 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.core.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#F5F5F5">
+    android:background="#F5F5F5"
+    android:fillViewport="true">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        android:padding="24dp">
+        android:padding="20dp">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:layout_marginBottom="24dp">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Kalkulator Pendapatan Petani"
+                android:textColor="#2E7D32"
+                android:textSize="20sp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="4dp"
+                android:text="Hitung Hasil Bersih &amp; Omzet Penjualan Sawit Swadaya"
+                android:textColor="#6C757D"
+                android:textSize="14sp" />
+        </LinearLayout>
 
         <com.google.android.material.card.MaterialCardView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             app:cardCornerRadius="12dp"
-            app:cardBackgroundColor="#E8F5E9"
+            app:cardElevation="2dp"
             app:strokeWidth="1dp"
-            app:strokeColor="#2E7D32"
+            app:strokeColor="#E0E0E0"
+            app:cardBackgroundColor="#FFFFFF"
             android:layout_marginBottom="24dp">
+
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
-                android:padding="16dp">
+                android:padding="20dp">
+
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Harga Pasaran Saat Ini"
-                    android:textColor="#2E7D32"
-                    android:textSize="14sp" />
+                    android:text="KELOMPOK UMUR TANAMAN"
+                    android:textSize="12sp"
+                    android:textStyle="bold"
+                    android:textColor="#495057" />
+
+                <Spinner
+                    android:id="@+id/spinnerUmur"
+                    android:layout_width="match_parent"
+                    android:layout_height="50dp"
+                    android:layout_marginTop="8dp"
+                    android:layout_marginBottom="16dp"
+                    android:background="@android:drawable/btn_dropdown" />
+
                 <TextView
-                    android:id="@+id/tvHargaPasar"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Rp 2.450 / Kg"
+                    android:text="HARGA JUAL TBS (RP/KG) - OTOMATIS"
+                    android:textSize="12sp"
+                    android:textStyle="bold"
+                    android:textColor="#495057" />
+                <EditText
+                    android:id="@+id/etHargaJualTBS"
+                    android:layout_width="match_parent"
+                    android:layout_height="50dp"
+                    android:layout_marginTop="8dp"
+                    android:layout_marginBottom="16dp"
+                    android:background="@android:drawable/edit_text"
+                    android:hint="Menunggu pilihan umur..."
+                    android:enabled="false"
                     android:textColor="#2E7D32"
-                    android:textSize="24sp"
+                    android:textStyle="bold"
+                    android:padding="12dp" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="TONASE / BERAT TIMBANGAN (KG)"
+                    android:textSize="12sp"
+                    android:textStyle="bold"
+                    android:textColor="#495057" />
+                <EditText
+                    android:id="@+id/etTonase"
+                    android:layout_width="match_parent"
+                    android:layout_height="50dp"
+                    android:layout_marginTop="8dp"
+                    android:layout_marginBottom="16dp"
+                    android:background="@android:drawable/edit_text"
+                    android:hint="Misal: 3500"
+                    android:inputType="numberDecimal"
+                    android:padding="12dp" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="TOTAL BIAYA OPERASIONAL (RP)"
+                    android:textSize="12sp"
+                    android:textStyle="bold"
+                    android:textColor="#495057" />
+                <EditText
+                    android:id="@+id/etBiayaOps"
+                    android:layout_width="match_parent"
+                    android:layout_height="50dp"
+                    android:layout_marginTop="8dp"
+                    android:background="@android:drawable/edit_text"
+                    android:hint="Misal: 1500000"
+                    android:inputType="number"
+                    android:padding="12dp" />
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="*Meliputi: Pupuk, Upah Tukang Egrek, &amp; Transportasi Truk"
+                    android:textSize="10sp"
+                    android:textColor="#9E9E9E"
+                    android:layout_marginBottom="24dp"
+                    android:layout_marginTop="4dp"/>
+
+                <Button
+                    android:id="@+id/btnHitungPendapatan"
+                    android:layout_width="match_parent"
+                    android:layout_height="55dp"
+                    android:backgroundTint="#0288D1"
+                    android:text="HITUNG PENDAPATAN BERSIH"
+                    android:textColor="#FFFFFF"
                     android:textStyle="bold" />
             </LinearLayout>
         </com.google.android.material.card.MaterialCardView>
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Masukkan Variabel Prediksi"
-            android:textStyle="bold"
-            android:textSize="16sp"
-            android:layout_marginBottom="16dp"/>
-
-        <EditText
-            android:id="@+id/etUmurTanaman"
-            android:layout_width="match_parent"
-            android:layout_height="50dp"
-            android:hint="Umur Tanaman (Tahun)"
-            android:textColor="#333333"
-            android:textColorHint="#999999"
-            android:inputType="number"
-            android:background="@android:drawable/edit_text"
-            android:padding="12dp"
-            android:layout_marginBottom="12dp"/>
-
-        <EditText
-            android:id="@+id/etIndeksK"
-            android:layout_width="match_parent"
-            android:layout_height="50dp"
-            android:hint="Indeks K (%)"
-            android:textColor="#333333"
-            android:textColorHint="#999999"
-            android:inputType="numberDecimal"
-            android:background="@android:drawable/edit_text"
-            android:padding="12dp"
-            android:layout_marginBottom="12dp"/>
-
-        <EditText
-            android:id="@+id/etHargaCPO"
-            android:layout_width="match_parent"
-            android:layout_height="50dp"
-            android:hint="Harga CPO (Rp)"
-            android:textColor="#333333"
-            android:textColorHint="#999999"
-            android:inputType="number"
-            android:background="@android:drawable/edit_text"
-            android:padding="12dp"
-            android:layout_marginBottom="24dp"/>
-
-        <Button
-            android:id="@+id/btnHitung"
-            android:layout_width="match_parent"
-            android:layout_height="55dp"
-            android:text="HITUNG PREDIKSI"
-            android:backgroundTint="#2E7D32"/>
-
-        <LinearLayout
-            android:id="@+id/layoutHasil"
+        <com.google.android.material.card.MaterialCardView
+            android:id="@+id/cardNotaHasil"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:visibility="gone"
-            android:layout_marginTop="24dp">
+            app:cardCornerRadius="12dp"
+            app:cardElevation="2dp"
+            app:strokeWidth="1dp"
+            app:strokeColor="#0288D1"
+            app:cardBackgroundColor="#E1F5FE"
+            android:layout_marginBottom="32dp">
 
-            <TextView
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Hasil Prediksi Harga TBS:"
-                android:gravity="center"
-                android:textSize="16sp"/>
+                android:orientation="vertical"
+                android:padding="20dp">
 
-            <TextView
-                android:id="@+id/tvHasilPrediksi"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="Rp 0"
-                android:gravity="center"
-                android:textColor="#2E7D32"
-                android:textSize="32sp"
-                android:textStyle="bold"
-                android:layout_marginBottom="16dp"/>
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="LAPORAN KEUANGAN HASIL PANEN"
+                    android:textSize="14sp"
+                    android:textStyle="bold"
+                    android:textColor="#0277BD"
+                    android:layout_marginBottom="12dp" />
 
-            <Button
-                android:id="@+id/btnSimpan"
-                style="@style/Widget.MaterialComponents.Button.OutlinedButton"
-                android:layout_width="match_parent"
-                android:layout_height="55dp"
-                android:text="SIMPAN KE RIWAYAT"
-                app:strokeColor="#2E7D32"
-                android:textColor="#2E7D32"/>
-        </LinearLayout>
+                <View android:layout_width="match_parent" android:layout_height="1dp" android:background="#B3E5FC" android:layout_marginBottom="12dp"/>
+
+                <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content" android:orientation="horizontal" android:layout_marginBottom="6dp">
+                    <TextView android:layout_width="0dp" android:layout_height="wrap_content" android:layout_weight="1" android:text="Pendapatan Kotor (Omzet)" android:textSize="13sp" android:textColor="#333333"/>
+                    <TextView android:id="@+id/tvNotaOmzet" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="Rp 0" android:textSize="13sp" android:textStyle="bold" android:textColor="#333333"/>
+                </LinearLayout>
+
+                <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content" android:orientation="horizontal" android:layout_marginBottom="16dp">
+                    <TextView android:layout_width="0dp" android:layout_height="wrap_content" android:layout_weight="1" android:text="(-) Pengeluaran Kebun" android:textSize="13sp" android:textColor="#D32F2F"/>
+                    <TextView android:id="@+id/tvNotaBiaya" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="Rp 0" android:textSize="13sp" android:textStyle="bold" android:textColor="#D32F2F"/>
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/boxStatusHasil"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:background="#2E7D32"
+                    android:padding="12dp"
+                    android:gravity="center"
+                    android:layout_marginTop="8dp">
+
+                    <TextView
+                        android:id="@+id/tvLabelStatus"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="ESTIMASI UNTUNG BERSIH"
+                        android:textSize="11sp"
+                        android:textColor="#FFFFFF"
+                        android:layout_marginBottom="4dp"/>
+
+                    <TextView
+                        android:id="@+id/tvNominalBersih"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Rp 0"
+                        android:textSize="22sp"
+                        android:textStyle="bold"
+                        android:textColor="#FFFFFF"/>
+                </LinearLayout>
+            </LinearLayout>
+        </com.google.android.material.card.MaterialCardView>
 
     </LinearLayout>
-</ScrollView>
+</androidx.core.widget.NestedScrollView>

@@ -22,9 +22,13 @@ class SplashFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        // Bikin timer 3 detik (3000 ms) terus pindah ke halaman Login
+        // Delay 2 detik (2000 ms) sebelum pindah ke Login
         Handler(Looper.getMainLooper()).postDelayed({
-            findNavController().navigate(R.id.action_splashFragment_to_loginFragment)
-        }, 3000)
+            // INI GEMBOK PENGAMANNYA: Cek apakah fragment masih aktif di layar
+            if (isAdded) {
+                // Pastikan ID action ini sesuai dengan yang ada di nav_graph.xml milikmu
+                findNavController().navigate(R.id.action_splashFragment_to_loginFragment)
+            }
+        }, 2000)
     }
 }

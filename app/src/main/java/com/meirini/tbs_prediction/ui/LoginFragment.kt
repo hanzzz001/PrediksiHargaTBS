@@ -61,21 +61,24 @@ class LoginFragment : Fragment() {
                             // Cek Role di Firestore (Admin atau Petani)
                             firestore.collection("users").document(userId).get()
                                 .addOnSuccessListener { document ->
-                                    // Tarik data role (walaupun kosong, default kita anggap Petani untuk sekarang)
                                     val role = document.getString("role")
+
+                                    // Siapkan opsi untuk menghapus halaman Login dari memori (biar ngga bocor pas di-back)
+                                    val navOptions = androidx.navigation.NavOptions.Builder()
+                                        .setPopUpTo(R.id.loginFragment, true)
+                                        .build()
 
                                     if (role == "Admin") {
                                         Toast.makeText(requireContext(), "Selamat Datang Admin!", Toast.LENGTH_SHORT).show()
-                                        // Nanti kita buatkan halaman khusus Admin
+                                        // Lempar ke halaman Admin
+                                        findNavController().navigate(R.id.action_loginFragment_to_adminFragment, null, navOptions)
                                     } else {
                                         Toast.makeText(requireContext(), "Login Berhasil!", Toast.LENGTH_SHORT).show()
-
-                                        // INI PERINTAH UNTUK PINDAH KE DASHBOARD PETANI:
-                                        findNavController().navigate(R.id.action_loginFragment_to_dashboardFragment)
+                                        // Lempar ke halaman Dashboard Petani
+                                        findNavController().navigate(R.id.action_loginFragment_to_dashboardFragment, null, navOptions)
                                     }
                                 }
                                 .addOnFailureListener {
-                                    // Kalau gagal narik data Firestore, tetap paksa masuk ke Dashboard Petani
                                     Toast.makeText(requireContext(), "Login Berhasil (Tanpa Role)!", Toast.LENGTH_SHORT).show()
                                     findNavController().navigate(R.id.action_loginFragment_to_dashboardFragment)
                                 }

@@ -66,4 +66,6 @@ dependencies {
 
 // Import the BoM (agar versi library sinkron)
     implementation(platform("com.google.firebase:firebase-bom:33.1.0"))
+    // Library untuk Grafik Line Chart
+    implementation("com.github.PhilJay:MPAndroidChart:v3.1.0")
 }

@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:orientation="horizontal"
+    android:paddingVertical="12dp"
+    android:gravity="center_vertical">
+
+    <!-- Kolom Tanggal -->
+    <TextView
+        android:id="@+id/tvItemTanggal"
+        android:layout_width="120dp"
+        android:layout_height="wrap_content"
+        android:text="01/01/2026"
+        android:textColor="#212529"
+        android:textSize="12sp" />
+
+    <!-- Kolom Umur -->
+    <TextView
+        android:id="@+id/tvItemUmur"
+        android:layout_width="60dp"
+        android:layout_height="wrap_content"
+        android:text="10 Thn"
+        android:textColor="#495057"
+        android:textSize="12sp" />
+
+    <!-- Kolom Indeks K -->
+    <TextView
+        android:id="@+id/tvItemIndeksK"
+        android:layout_width="80dp"
+        android:layout_height="wrap_content"
+        android:text="91.20%"
+        android:textColor="#495057"
+        android:textSize="12sp" />
+
+    <!-- Kolom Harga CPO -->
+    <TextView
+        android:id="@+id/tvItemCPO"
+        android:layout_width="120dp"
+        android:layout_height="wrap_content"
+        android:text="Rp 12.450"
+        android:textColor="#495057"
+        android:textSize="12sp" />
+
+    <!-- Kolom Harga Kernel -->
+    <TextView
+        android:id="@+id/tvItemKernel"
+        android:layout_width="120dp"
+        android:layout_height="wrap_content"
+        android:text="Rp 6.300"
+        android:textColor="#495057"
+        android:textSize="12sp" />
+
+    <!-- Kolom Hasil Prediksi TBS -->
+    <TextView
+        android:id="@+id/tvItemHasilTBS"
+        android:layout_width="100dp"
+        android:layout_height="wrap_content"
+        android:text="Rp 0"
+        android:textColor="#2E7D32"
+        android:textStyle="bold"
+        android:textSize="12sp" />
+
+    <!-- Tombol Aksi Hapus -->
+    <TextView
+        android:id="@+id/tvItemHapus"
+        android:layout_width="60dp"
+        android:layout_height="wrap_content"
+        android:text="Hapus"
+        android:textColor="#D32F2F"
+        android:textStyle="bold"
+        android:textSize="12sp"
+        android:clickable="true"
+        android:focusable="true" />
+
+</LinearLayout>
