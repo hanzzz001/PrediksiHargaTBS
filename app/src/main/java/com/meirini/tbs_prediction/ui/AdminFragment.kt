@@ -60,44 +60,65 @@ class AdminFragment : Fragment() {
                 return@setOnClickListener
             }
 
-            // 13 DATA MOCK (Sesuai output ML Mei)
-            val listHargaMock = listOf(
-                hashMapOf("umur" to 3, "harga_tbs" to 2450.0),
-                hashMapOf("umur" to 4, "harga_tbs" to 2480.0),
-                hashMapOf("umur" to 5, "harga_tbs" to 2510.0),
-                hashMapOf("umur" to 6, "harga_tbs" to 2550.0),
-                hashMapOf("umur" to 7, "harga_tbs" to 2600.0),
-                hashMapOf("umur" to 8, "harga_tbs" to 2650.0),
-                hashMapOf("umur" to 9, "harga_tbs" to 2700.0),
-                hashMapOf("umur" to 10, "harga_tbs" to 2750.0), // Mewakili 10-20 Tahun
-                hashMapOf("umur" to 21, "harga_tbs" to 2710.0), // Mulai turun harganya
-                hashMapOf("umur" to 22, "harga_tbs" to 2680.0),
-                hashMapOf("umur" to 23, "harga_tbs" to 2640.0),
-                hashMapOf("umur" to 24, "harga_tbs" to 2590.0),
-                hashMapOf("umur" to 25, "harga_tbs" to 2500.0)
+            // 1. Setup Retrofit
+            val retrofit = retrofit2.Retrofit.Builder()
+                .baseUrl("http://172.20.10.2:5000/") // Gunakan IP dari Terminal Flask-mu
+                .addConverterFactory(retrofit2.converter.gson.GsonConverterFactory.create())
+                .build()
+
+            val apiService = retrofit.create(com.meirini.tbs_prediction.network.ApiService::class.java)
+
+            // 2. Bungkus 3 inputan Admin
+            val requestData = com.meirini.tbs_prediction.network.TbsRequest(
+                cpo = hargaCPO.toInt(),
+                kernel = hargaKernel.toInt(),
+                indeksK = indeksK.toDouble()
             )
 
-            val tanggalUpdate = SimpleDateFormat("dd MMM yyyy, HH:mm", Locale.getDefault()).format(Date())
+            // 3. Tembak ke API Flask Mei!
+            apiService.getPrediksiTbs(requestData).enqueue(object : retrofit2.Callback<com.meirini.tbs_prediction.network.TbsResponse> {
+                override fun onResponse(call: retrofit2.Call<com.meirini.tbs_prediction.network.TbsResponse>, response: retrofit2.Response<com.meirini.tbs_prediction.network.TbsResponse>) {
+                    if (response.isSuccessful && response.body() != null) {
+                        val balasan = response.body()!!
 
-            val paketDataResmi = hashMapOf(
-                "tanggal_update" to tanggalUpdate,
-                "cpo_global" to hargaCPO.toInt(),
-                "kernel_global" to hargaKernel.toInt(),
-                "indeks_k" to indeksK.toDouble(),
-                "daftar_harga" to listHargaMock
-            )
+                        if (balasan.status == "success") {
+                            // API Sukses! Ubah format jawaban API biar cocok sama bentuk array Firebase
+                            val daftarHargaAsli = balasan.dataPrediksi.map {
+                                hashMapOf(
+                                    "umur" to it.umurTanaman,
+                                    "harga_tbs" to it.hargaTbs
+                                )
+                            }
 
-            firestore.collection("Harga_Resmi").document("terkini")
-                .set(paketDataResmi)
-                .addOnSuccessListener {
-                    Toast.makeText(requireContext(), "Model AI Diupdate! Harga Resmi Tersimpan.", Toast.LENGTH_LONG).show()
-                    etIndeksK.text.clear()
-                    etHargaCPO.text.clear()
-                    etHargaKernel.text.clear()
+                            val tanggalUpdate = SimpleDateFormat("dd MMM yyyy, HH:mm", Locale.getDefault()).format(Date())
+
+                            val paketDataResmi = hashMapOf(
+                                "tanggal_update" to tanggalUpdate,
+                                "cpo_global" to hargaCPO.toInt(),
+                                "kernel_global" to hargaKernel.toInt(),
+                                "indeks_k" to indeksK.toDouble(),
+                                "daftar_harga" to daftarHargaAsli
+                            )
+
+                            // Dorong hasil murni AI ke Firebase!
+                            firestore.collection("Harga_Resmi").document("terkini")
+                                .set(paketDataResmi)
+                                .addOnSuccessListener {
+                                    Toast.makeText(requireContext(), "SUKSES! AI Selesai Menghitung & Data Di-Update.", Toast.LENGTH_LONG).show()
+                                    etIndeksK.text.clear()
+                                    etHargaCPO.text.clear()
+                                    etHargaKernel.text.clear()
+                                }
+                        }
+                    } else {
+                        Toast.makeText(requireContext(), "Gagal membaca AI. Server membalas error.", Toast.LENGTH_SHORT).show()
+                    }
                 }
-                .addOnFailureListener { e ->
-                    Toast.makeText(requireContext(), "Gagal menyimpan: ${e.message}", Toast.LENGTH_SHORT).show()
+
+                override fun onFailure(call: retrofit2.Call<com.meirini.tbs_prediction.network.TbsResponse>, t: Throwable) {
+                    Toast.makeText(requireContext(), "Server AI Mati / HP tidak satu WiFi: ${t.message}", Toast.LENGTH_LONG).show()
                 }
+            })
         }
     }
 
