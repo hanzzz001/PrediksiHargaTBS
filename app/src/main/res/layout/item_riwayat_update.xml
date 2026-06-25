@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="#FFFFFF"
+    android:paddingHorizontal="16dp"
+    android:paddingVertical="12dp"> <ImageView
+    android:id="@+id/ivIconHistory"
+    android:layout_width="32dp" android:layout_height="32dp"
+    android:src="@android:drawable/ic_popup_sync"
+    app:tint="#0288D1"
+    app:layout_constraintStart_toStartOf="parent"
+    app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/tvJudulRiwayat"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="12dp" android:text="Update AI Prediksi TBS"
+        android:textColor="#111111"
+        android:textSize="14sp" android:textStyle="bold"
+        app:layout_constraintStart_toEndOf="@id/ivIconHistory"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/tvDetailParameter"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="4dp"
+        android:text="CPO: Rp15.000 | Kernel: Rp8.000\nIndeks K: 92.5%"
+        android:textColor="#555555"
+        android:textSize="12sp" app:layout_constraintStart_toStartOf="@id/tvJudulRiwayat"
+        app:layout_constraintTop_toBottomOf="@id/tvJudulRiwayat" />
+
+    <TextView
+        android:id="@+id/tvTanggalUpdate"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="6dp"
+        android:text="25 Jun 2026 19:34"
+        android:textColor="#888888"
+        android:textSize="11sp" app:layout_constraintStart_toStartOf="@id/tvJudulRiwayat"
+        app:layout_constraintTop_toBottomOf="@id/tvDetailParameter" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="#05C46B"
+        android:paddingHorizontal="8dp"
+        android:paddingVertical="4dp"
+        android:text="Sukses"
+        android:textColor="#FFFFFF"
+        android:textSize="10sp" android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_marginTop="12dp"
+        android:background="#E5E7EB"
+        app:layout_constraintTop_toBottomOf="@id/tvTanggalUpdate" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

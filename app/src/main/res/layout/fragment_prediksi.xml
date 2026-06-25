@@ -1,49 +1,56 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.core.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#F5F5F5"
+    android:background="#F4F6F8"
     android:fillViewport="true">
 
-    <LinearLayout
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:padding="20dp">
+        android:layout_height="wrap_content">
 
-        <LinearLayout
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="160dp"
+            android:background="#2E7D32"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/tvCalcTitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="24dp"
+            android:layout_marginTop="32dp"
+            android:text="Kalkulator Pendapatan"
+            android:textColor="#FFFFFF"
+            android:textSize="22sp"
+            android:textStyle="bold"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="4dp"
+            android:text="Hitung hasil bersih &amp; omzet penjualan sawit"
+            android:textColor="#E8F5E9"
+            android:textSize="14sp"
+            app:layout_constraintStart_toStartOf="@id/tvCalcTitle"
+            app:layout_constraintTop_toBottomOf="@id/tvCalcTitle" />
+
+        <androidx.cardview.widget.CardView
+            android:id="@+id/cardFormKalkulator"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:layout_marginBottom="24dp">
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Kalkulator Pendapatan Petani"
-                android:textColor="#2E7D32"
-                android:textSize="20sp"
-                android:textStyle="bold" />
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="4dp"
-                android:text="Hitung Hasil Bersih &amp; Omzet Penjualan Sawit Swadaya"
-                android:textColor="#6C757D"
-                android:textSize="14sp" />
-        </LinearLayout>
-
-        <com.google.android.material.card.MaterialCardView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            app:cardCornerRadius="12dp"
-            app:cardElevation="2dp"
-            app:strokeWidth="1dp"
-            app:strokeColor="#E0E0E0"
-            app:cardBackgroundColor="#FFFFFF"
-            android:layout_marginBottom="24dp">
+            android:layout_marginHorizontal="20dp"
+            android:layout_marginTop="100dp"
+            android:layout_marginBottom="32dp"
+            app:cardCornerRadius="16dp"
+            app:cardElevation="6dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.0">
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -51,164 +58,213 @@
                 android:orientation="vertical"
                 android:padding="20dp">
 
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="KELOMPOK UMUR TANAMAN"
-                    android:textSize="12sp"
-                    android:textStyle="bold"
-                    android:textColor="#495057" />
-
-                <Spinner
-                    android:id="@+id/spinnerUmur"
+                <com.google.android.material.textfield.TextInputLayout
+                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.ExposedDropdownMenu"
                     android:layout_width="match_parent"
-                    android:layout_height="50dp"
-                    android:layout_marginTop="8dp"
-                    android:layout_marginBottom="16dp"
-                    android:background="@android:drawable/btn_dropdown" />
+                    android:layout_height="wrap_content"
+                    android:hint="Pilih Kelompok Umur Tanaman"
+                    app:boxCornerRadiusBottomEnd="12dp"
+                    app:boxCornerRadiusBottomStart="12dp"
+                    app:boxCornerRadiusTopEnd="12dp"
+                    app:boxCornerRadiusTopStart="12dp">
+
+                    <AutoCompleteTextView
+                        android:id="@+id/spinnerUmur"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:inputType="none" />
+                </com.google.android.material.textfield.TextInputLayout>
+
+                <com.google.android.material.textfield.TextInputLayout
+                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="12dp"
+                    android:hint="Harga Jual TBS (Rp/Kg) - Otomatis"
+                    app:boxCornerRadiusBottomEnd="12dp"
+                    app:boxCornerRadiusBottomStart="12dp"
+                    app:boxCornerRadiusTopEnd="12dp"
+                    app:boxCornerRadiusTopStart="12dp">
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/etHargaOtomatis"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:enabled="false"
+                        android:textColor="#2E7D32"
+                        android:textStyle="bold" />
+                </com.google.android.material.textfield.TextInputLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="12dp"
+                    android:orientation="horizontal">
+
+                    <com.google.android.material.textfield.TextInputLayout
+                        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginEnd="6dp"
+                        android:layout_weight="1"
+                        android:hint="Tonase (Kg)"
+                        app:boxCornerRadiusBottomEnd="12dp"
+                        app:boxCornerRadiusBottomStart="12dp"
+                        app:boxCornerRadiusTopEnd="12dp"
+                        app:boxCornerRadiusTopStart="12dp">
+
+                        <com.google.android.material.textfield.TextInputEditText
+                            android:id="@+id/etTonase"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:inputType="numberDecimal" />
+                    </com.google.android.material.textfield.TextInputLayout>
+
+                    <com.google.android.material.textfield.TextInputLayout
+                        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="6dp"
+                        android:layout_weight="1.2"
+                        android:hint="Total Biaya (Rp)"
+                        app:boxCornerRadiusBottomEnd="12dp"
+                        app:boxCornerRadiusBottomStart="12dp"
+                        app:boxCornerRadiusTopEnd="12dp"
+                        app:boxCornerRadiusTopStart="12dp">
+
+                        <com.google.android.material.textfield.TextInputEditText
+                            android:id="@+id/etBiaya"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:inputType="numberDecimal" />
+                    </com.google.android.material.textfield.TextInputLayout>
+                </LinearLayout>
 
                 <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="HARGA JUAL TBS (RP/KG) - OTOMATIS"
-                    android:textSize="12sp"
-                    android:textStyle="bold"
-                    android:textColor="#495057" />
-                <EditText
-                    android:id="@+id/etHargaJualTBS"
                     android:layout_width="match_parent"
-                    android:layout_height="50dp"
-                    android:layout_marginTop="8dp"
-                    android:layout_marginBottom="16dp"
-                    android:background="@android:drawable/edit_text"
-                    android:hint="Menunggu pilihan umur..."
-                    android:enabled="false"
-                    android:textColor="#2E7D32"
-                    android:textStyle="bold"
-                    android:padding="12dp" />
-
-                <TextView
-                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="TONASE / BERAT TIMBANGAN (KG)"
-                    android:textSize="12sp"
-                    android:textStyle="bold"
-                    android:textColor="#495057" />
-                <EditText
-                    android:id="@+id/etTonase"
-                    android:layout_width="match_parent"
-                    android:layout_height="50dp"
                     android:layout_marginTop="8dp"
-                    android:layout_marginBottom="16dp"
-                    android:background="@android:drawable/edit_text"
-                    android:hint="Misal: 3500"
-                    android:inputType="numberDecimal"
-                    android:padding="12dp" />
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="TOTAL BIAYA OPERASIONAL (RP)"
-                    android:textSize="12sp"
-                    android:textStyle="bold"
-                    android:textColor="#495057" />
-                <EditText
-                    android:id="@+id/etBiayaOps"
-                    android:layout_width="match_parent"
-                    android:layout_height="50dp"
-                    android:layout_marginTop="8dp"
-                    android:background="@android:drawable/edit_text"
-                    android:hint="Misal: 1500000"
-                    android:inputType="number"
-                    android:padding="12dp" />
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="*Meliputi: Pupuk, Upah Tukang Egrek, &amp; Transportasi Truk"
-                    android:textSize="10sp"
-                    android:textColor="#9E9E9E"
-                    android:layout_marginBottom="24dp"
-                    android:layout_marginTop="4dp"/>
+                    android:fontFamily="sans-serif-light"
+                    android:text="*Meliputi: Pupuk, Upah Tukang Egrek, &amp; Truk"
+                    android:textColor="#888888"
+                    android:textSize="12sp" />
 
                 <Button
                     android:id="@+id/btnHitungPendapatan"
                     android:layout_width="match_parent"
                     android:layout_height="55dp"
-                    android:backgroundTint="#0288D1"
+                    android:layout_marginTop="24dp"
+                    android:backgroundTint="#2E7D32"
                     android:text="HITUNG PENDAPATAN BERSIH"
                     android:textColor="#FFFFFF"
-                    android:textStyle="bold" />
-            </LinearLayout>
-        </com.google.android.material.card.MaterialCardView>
+                    android:textSize="15sp"
+                    android:textStyle="bold"
+                    app:cornerRadius="12dp" />
 
-        <com.google.android.material.card.MaterialCardView
+            </LinearLayout>
+        </androidx.cardview.widget.CardView>
+        <androidx.cardview.widget.CardView
             android:id="@+id/cardNotaHasil"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            app:cardCornerRadius="12dp"
-            app:cardElevation="2dp"
-            app:strokeWidth="1dp"
-            app:strokeColor="#0288D1"
-            app:cardBackgroundColor="#E1F5FE"
-            android:layout_marginBottom="32dp">
+            android:layout_marginHorizontal="20dp"
+            android:layout_marginTop="16dp"
+            android:layout_marginBottom="32dp"
+            android:visibility="gone"
+            app:cardCornerRadius="16dp"
+            app:cardElevation="6dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/cardFormKalkulator">
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="vertical"
-                android:padding="20dp">
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="LAPORAN KEUANGAN HASIL PANEN"
-                    android:textSize="14sp"
-                    android:textStyle="bold"
-                    android:textColor="#0277BD"
-                    android:layout_marginBottom="12dp" />
-
-                <View android:layout_width="match_parent" android:layout_height="1dp" android:background="#B3E5FC" android:layout_marginBottom="12dp"/>
-
-                <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content" android:orientation="horizontal" android:layout_marginBottom="6dp">
-                    <TextView android:layout_width="0dp" android:layout_height="wrap_content" android:layout_weight="1" android:text="Pendapatan Kotor (Omzet)" android:textSize="13sp" android:textColor="#333333"/>
-                    <TextView android:id="@+id/tvNotaOmzet" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="Rp 0" android:textSize="13sp" android:textStyle="bold" android:textColor="#333333"/>
-                </LinearLayout>
-
-                <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content" android:orientation="horizontal" android:layout_marginBottom="16dp">
-                    <TextView android:layout_width="0dp" android:layout_height="wrap_content" android:layout_weight="1" android:text="(-) Pengeluaran Kebun" android:textSize="13sp" android:textColor="#D32F2F"/>
-                    <TextView android:id="@+id/tvNotaBiaya" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="Rp 0" android:textSize="13sp" android:textStyle="bold" android:textColor="#D32F2F"/>
-                </LinearLayout>
+                android:orientation="vertical">
 
                 <LinearLayout
                     android:id="@+id/boxStatusHasil"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:orientation="vertical"
                     android:background="#2E7D32"
-                    android:padding="12dp"
                     android:gravity="center"
-                    android:layout_marginTop="8dp">
+                    android:padding="12dp">
 
                     <TextView
                         android:id="@+id/tvLabelStatus"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="ESTIMASI UNTUNG BERSIH"
-                        android:textSize="11sp"
                         android:textColor="#FFFFFF"
-                        android:layout_marginBottom="4dp"/>
+                        android:textSize="14sp"
+                        android:textStyle="bold" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:padding="20dp">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Pendapatan Kotor:"
+                        android:textColor="#555555" />
+
+                    <TextView
+                        android:id="@+id/tvNotaOmzet"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Rp0"
+                        android:textColor="#111111"
+                        android:textSize="16sp"
+                        android:textStyle="bold" />
+
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="1dp"
+                        android:layout_marginVertical="8dp"
+                        android:background="#EEEEEE" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Biaya Operasional:"
+                        android:textColor="#555555" />
+
+                    <TextView
+                        android:id="@+id/tvNotaBiaya"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="- Rp0"
+                        android:textColor="#D32F2F"
+                        android:textSize="16sp"
+                        android:textStyle="bold" />
+
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="1dp"
+                        android:layout_marginVertical="8dp"
+                        android:background="#EEEEEE" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="PENDAPATAN BERSIH"
+                        android:textColor="#2E7D32"
+                        android:textSize="12sp"
+                        android:textStyle="bold" />
 
                     <TextView
                         android:id="@+id/tvNominalBersih"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Rp 0"
-                        android:textSize="22sp"
-                        android:textStyle="bold"
-                        android:textColor="#FFFFFF"/>
+                        android:text="Rp0"
+                        android:textColor="#2E7D32"
+                        android:textSize="24sp"
+                        android:textStyle="bold" />
                 </LinearLayout>
             </LinearLayout>
-        </com.google.android.material.card.MaterialCardView>
-
-    </LinearLayout>
-</androidx.core.widget.NestedScrollView>
+        </androidx.cardview.widget.CardView>
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</ScrollView>

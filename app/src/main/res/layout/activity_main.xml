@@ -13,7 +13,7 @@
         android:orientation="horizontal"
         android:gravity="center_vertical"
         android:paddingHorizontal="16dp"
-        android:background="@android:color/white"
+        android:background="#2E7D32"
         android:elevation="4dp"
         android:visibility="gone"
         app:layout_constraintTop_toTopOf="parent">
@@ -35,7 +35,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Portal Prediksi TBS Sawit Harian Riau"
-                android:textColor="#2E7D32"
+                android:textColor="#FFFFFF"
                 android:textSize="15sp"
                 android:textStyle="bold" />
 
@@ -44,7 +44,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="2dp"
                 android:text="Estimasi Tren Real-Time Harian Berdasarkan Konformitas Data Disbun"
-                android:textColor="#6C757D"
+                android:textColor="#E8F5E9"
                 android:textSize="10sp" />
         </LinearLayout>
 
@@ -73,13 +73,18 @@
         android:id="@+id/bottomNavigationView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@drawable/bg_bottom_nav_rounded"
-        app:itemIconTint="@android:color/white"
-        app:itemTextColor="@android:color/white"
+        android:background="#FFFFFF"
+        app:elevation="16dp"
+        app:itemIconTint="@color/bottom_nav_colors"
+        app:itemTextColor="@color/bottom_nav_colors"
+        app:itemActiveIndicatorStyle="@null"
+        app:labelVisibilityMode="labeled"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
         app:menu="@menu/bottom_nav_menu"
         android:visibility="gone" />
+
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>

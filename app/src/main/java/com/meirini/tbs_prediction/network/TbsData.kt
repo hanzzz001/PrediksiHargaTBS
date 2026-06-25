@@ -5,10 +5,10 @@ import com.google.gson.annotations.SerializedName
 // 1. Data yang bakal dikirim Android ke Server (Input Admin)
 data class TbsRequest(
     @SerializedName("harga_cpo")
-    val cpo: Int,
+    val cpo: Double,
 
     @SerializedName("harga_kernel")
-    val kernel: Int,
+    val kernel: Double,
 
     @SerializedName("indeks_k")
     val indeksK: Double

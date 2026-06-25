@@ -1,4 +1,4 @@
-package com.meirini.tbs_prediction.ui // Pastikan package ini sesuai dengan milikmu
+package com.meirini.tbs_prediction.ui
 
 import android.graphics.Color
 import android.os.Bundle
@@ -14,9 +14,12 @@ import com.github.mikephil.charting.data.Entry
 import com.github.mikephil.charting.data.LineData
 import com.github.mikephil.charting.data.LineDataSet
 import com.github.mikephil.charting.formatter.IndexAxisValueFormatter
+import com.google.firebase.firestore.FirebaseFirestore
 import com.meirini.tbs_prediction.R
 
 class DashboardFragment : Fragment() {
+
+    private lateinit var firestore: FirebaseFirestore
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -28,58 +31,97 @@ class DashboardFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        firestore = FirebaseFirestore.getInstance()
+
         // 1. Inisialisasi Tombol dan Grafik
-        val btnGoToPrediksi = view.findViewById<Button>(R.id.btnGoToPrediksi)
-        val lineChartTBS = view.findViewById<LineChart>(R.id.lineChartTBS)
+        val btnGoToPrediksi = view.findViewById<Button>(R.id.btnMulaiPrediksi)
+        val lineChartTBS = view.findViewById<LineChart>(R.id.lineChart)
 
-        // 2. Setup Grafik MPAndroidChart
-        setupGrafik(lineChartTBS)
+        // 2. Tarik Data Prediksi AI dari Firebase dan Gambar Grafiknya
+        setupGrafikPrediksiAI(lineChartTBS)
 
-        // 3. Aksi Tombol Mulai Prediksi
+        // 3. Aksi Tombol Pindah ke Kalkulator
         btnGoToPrediksi.setOnClickListener {
-            // Pastikan ID 'action_dashboardFragment_to_prediksiFragment' ini SAMA PERSIS
-            // dengan yang ada di garis panah nav_graph.xml milikmu ya!
             findNavController().navigate(R.id.action_dashboardFragment_to_prediksiFragment)
         }
     }
 
-    private fun setupGrafik(chart: LineChart) {
-        // Data Dummy Harga TBS Seminggu Terakhir (Nanti diganti data asli dari Firebase/API)
-        val entries = ArrayList<Entry>()
-        entries.add(Entry(0f, 2500f)) // Hari 1
-        entries.add(Entry(1f, 2550f)) // Hari 2
-        entries.add(Entry(2f, 2600f)) // Hari 3
-        entries.add(Entry(3f, 2580f)) // Hari 4
-        entries.add(Entry(4f, 2650f)) // Hari 5
-        entries.add(Entry(5f, 2700f)) // Hari 6
-        entries.add(Entry(6f, 2750f)) // Hari 7
+    private fun setupGrafikPrediksiAI(chart: LineChart) {
+        firestore.collection("Harga_Resmi").document("terkini").get()
+            .addOnSuccessListener { document ->
+                if (document != null && document.exists()) {
+                    val daftarHarga = document.get("daftar_harga") as? List<Map<String, Any>>
+                    if (daftarHarga.isNullOrEmpty()) return@addOnSuccessListener
 
-        // Desain Garisnya (Warna Hijau Sawit)
-        val dataSet = LineDataSet(entries, "Harga TBS (Rp)")
-        dataSet.color = Color.parseColor("#2E7D32")
-        dataSet.valueTextColor = Color.BLACK
-        dataSet.lineWidth = 3f
-        dataSet.circleRadius = 5f
-        dataSet.setCircleColor(Color.parseColor("#009688"))
-        dataSet.setDrawFilled(true)
-        dataSet.fillColor = Color.parseColor("#C8E6C9")
-        dataSet.mode = LineDataSet.Mode.CUBIC_BEZIER // Biar garisnya melengkung mulus, ngga kaku
+                    val entries = ArrayList<Entry>()
+                    val labelsUmur = ArrayList<String>()
 
-        val lineData = LineData(dataSet)
-        chart.data = lineData
+                    // Urutkan data berdasarkan umur tanaman biar garisnya urut dari kiri ke kanan
+                    val sortedList = daftarHarga.sortedBy { (it["umur"] as? Long) ?: 0L }
 
-        // Kustomisasi Sumbu X (Bawah) jadi nama Hari
-        val hari = arrayOf("Sen", "Sel", "Rab", "Kam", "Jum", "Sab", "Min")
-        val xAxis = chart.xAxis
-        xAxis.position = XAxis.XAxisPosition.BOTTOM
-        xAxis.valueFormatter = IndexAxisValueFormatter(hari)
-        xAxis.setDrawGridLines(false)
-        xAxis.granularity = 1f
+                    var index = 0f
+                    for (item in sortedList) {
+                        val umur = (item["umur"] as? Long) ?: 0L
+                        val harga = item["harga_tbs"].toString().toFloatOrNull() ?: 0f
 
-        // Kustomisasi Tampilan Umum
-        chart.axisRight.isEnabled = false // Matikan angka di sebelah kanan
-        chart.description.isEnabled = false // Matikan teks deskripsi kecil di pojok
-        chart.animateX(1000) // Animasi garis bergerak pas halaman dibuka
-        chart.invalidate() // Refresh grafik
+                        entries.add(Entry(index, harga))
+
+                        // Bikin label teks di bawah grafik (Sumbu X)
+                        labelsUmur.add(if (umur == 10L) "10-20 Thn" else "$umur Thn")
+                        index++
+                    }
+
+                    // Desain Garis ala Aplikasi Modern
+                    val dataSet = LineDataSet(entries, "Harga Prediksi (Rp/Kg)")
+                    dataSet.color = Color.parseColor("#2E7D32")
+                    dataSet.setCircleColor(Color.parseColor("#0288D1"))
+                    dataSet.lineWidth = 3f
+                    dataSet.circleRadius = 4f // Lingkaran diperkecil sedikit
+                    dataSet.setDrawFilled(true)
+                    dataSet.fillColor = Color.parseColor("#E8F5E9")
+                    dataSet.mode = LineDataSet.Mode.CUBIC_BEZIER
+
+                    // ==================================================
+                    // 🔴 INI OBATNYA: Matikan angka detail di atas titik
+                    // ==================================================
+                    dataSet.setDrawValues(false)
+
+                    val lineData = LineData(dataSet)
+                    chart.data = lineData
+
+                    // Kustomisasi Sumbu X (Bawah - Umur Tanaman)
+                    val xAxis = chart.xAxis
+                    xAxis.position = XAxis.XAxisPosition.BOTTOM
+                    xAxis.valueFormatter = IndexAxisValueFormatter(labelsUmur)
+                    xAxis.setDrawGridLines(false)
+                    xAxis.granularity = 1f
+                    xAxis.labelRotationAngle = -45f
+                    xAxis.textSize = 9f // Ukuran font dikecilkan
+                    xAxis.setLabelCount(7, false) // Biarkan teks melompat (skip) agar tidak menumpuk
+
+                    // Kustomisasi Sumbu Y Kiri (Harga)
+                    val yAxis = chart.axisLeft
+                    yAxis.textSize = 10f
+                    yAxis.spaceTop = 20f // Beri ruang napas di atap grafik
+                    yAxis.spaceBottom = 15f // Beri ruang napas di lantai grafik
+                    yAxis.valueFormatter = object : com.github.mikephil.charting.formatter.ValueFormatter() {
+                        override fun getFormattedValue(value: Float): String {
+                            // Format jadi angka bulat aja di sumbu Y (tanpa desimal)
+                            return value.toInt().toString()
+                        }
+                    }
+
+                    // Kustomisasi Tampilan Umum
+                    chart.axisRight.isEnabled = false // Matikan sumbu kanan
+                    chart.description.isEnabled = false
+                    chart.legend.isEnabled = true // Tetap tampilkan legenda warna
+
+                    // Kasih jarak aman dari tepi layar
+                    chart.setExtraOffsets(5f, 10f, 15f, 15f)
+
+                    chart.animateX(1200)
+                    chart.invalidate()
+                }
+            }
     }
 }

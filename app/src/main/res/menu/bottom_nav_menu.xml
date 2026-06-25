@@ -11,7 +11,7 @@
         android:title="Riwayat" />
 
     <item
-        android:id="@+id/profileFragment"
+        android:id="@+id/profilFragment"
         android:icon="@android:drawable/ic_menu_myplaces"
         android:title="Profil" />
 </menu>

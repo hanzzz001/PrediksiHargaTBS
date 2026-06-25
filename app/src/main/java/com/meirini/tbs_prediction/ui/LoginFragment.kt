@@ -52,29 +52,38 @@ class LoginFragment : Fragment() {
                 return@setOnClickListener
             }
 
-            // Proses Login ke Firebase
+            // 1. Proses Login ke Firebase Auth (Cek Email & Password)
             auth.signInWithEmailAndPassword(email, password)
                 .addOnCompleteListener { task ->
                     if (task.isSuccessful) {
                         val userId = auth.currentUser?.uid
                         if (userId != null) {
-                            // Cek Role di Firestore (Admin atau Petani)
+
+                            // 2. Kalau berhasil masuk, baru kita baca Database Firestore buat ngecek Role
                             firestore.collection("users").document(userId).get()
                                 .addOnSuccessListener { document ->
-                                    val role = document.getString("role")
+                                    // Ambil role dari database, kalau kosong default ke "petani"
+                                    val role = document.getString("role") ?: "petani"
 
-                                    // Siapkan opsi untuk menghapus halaman Login dari memori (biar ngga bocor pas di-back)
+                                    // =========================================================
+                                    // Simpan role ke memori HP (SharedPreferences)
+                                    // Semua dilowercase biar aman pas dicek di MainActivity
+                                    // =========================================================
+                                    val sharedPref = requireActivity().getSharedPreferences("UserPrefs", android.content.Context.MODE_PRIVATE)
+                                    sharedPref.edit().putString("role", role.lowercase()).apply()
+                                    // =========================================================
+
+                                    // Siapkan opsi untuk menghapus halaman Login dari tumpukan memori
                                     val navOptions = androidx.navigation.NavOptions.Builder()
                                         .setPopUpTo(R.id.loginFragment, true)
                                         .build()
 
-                                    if (role == "Admin") {
+                                    // 3. Arahkan rute sesuai Role (KEBAL HURUF BESAR/KECIL)
+                                    if (role.equals("admin", ignoreCase = true)) {
                                         Toast.makeText(requireContext(), "Selamat Datang Admin!", Toast.LENGTH_SHORT).show()
-                                        // Lempar ke halaman Admin
                                         findNavController().navigate(R.id.action_loginFragment_to_adminFragment, null, navOptions)
                                     } else {
                                         Toast.makeText(requireContext(), "Login Berhasil!", Toast.LENGTH_SHORT).show()
-                                        // Lempar ke halaman Dashboard Petani
                                         findNavController().navigate(R.id.action_loginFragment_to_dashboardFragment, null, navOptions)
                                     }
                                 }

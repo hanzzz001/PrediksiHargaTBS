@@ -60,4 +60,14 @@
         android:id="@+id/adminFragment"
         android:name="com.meirini.tbs_prediction.ui.AdminFragment"
         android:label="AdminFragment" />
+    <fragment
+        android:id="@+id/riwayatAdminFragment"
+        android:name="com.meirini.tbs_prediction.ui.RiwayatAdminFragment"
+        android:label="Riwayat Admin"
+        tools:layout="@layout/fragment_riwayat_admin" />
+    <fragment
+        android:id="@+id/profilFragment"
+        android:name="com.meirini.tbs_prediction.ui.ProfilFragment"
+        android:label="Profil Admin"
+        tools:layout="@layout/fragment_profil" />
 </navigation>

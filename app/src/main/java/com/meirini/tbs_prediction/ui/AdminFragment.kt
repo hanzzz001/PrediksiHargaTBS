@@ -51,31 +51,37 @@ class AdminFragment : Fragment() {
 
         // --- 2. AKSI TOMBOL SIMPAN UPDATE PARAMETER ---
         btnSimpanAdmin.setOnClickListener {
-            val indeksK = etIndeksK.text.toString().trim()
-            val hargaCPO = etHargaCPO.text.toString().trim()
-            val hargaKernel = etHargaKernel.text.toString().trim()
+            // FILTER OTOMATIS: Ganti koma jadi titik biar mesin ML ngga crash
+            val cpoStr = etHargaCPO.text.toString().trim().replace(",", ".")
+            val kernelStr = etHargaKernel.text.toString().trim().replace(",", ".")
+            val indeksKStr = etIndeksK.text.toString().trim().replace(",", ".")
 
-            if (indeksK.isEmpty() || hargaCPO.isEmpty() || hargaKernel.isEmpty()) {
+            if (cpoStr.isEmpty() || kernelStr.isEmpty() || indeksKStr.isEmpty()) {
                 Toast.makeText(requireContext(), "Isi 3 parameter pasar dulu!", Toast.LENGTH_SHORT).show()
                 return@setOnClickListener
             }
 
+            // Ubah string yang udah bersih tadi ke desimal (Double)
+            val cpoVal = cpoStr.toDoubleOrNull() ?: 0.0
+            val kernelVal = kernelStr.toDoubleOrNull() ?: 0.0
+            val indeksKVal = indeksKStr.toDoubleOrNull() ?: 0.0
+
             // 1. Setup Retrofit
             val retrofit = retrofit2.Retrofit.Builder()
-                .baseUrl("http://172.20.10.2:5000/") // Gunakan IP dari Terminal Flask-mu
+                .baseUrl("https://mantra-wipe-living.ngrok-free.dev/")
                 .addConverterFactory(retrofit2.converter.gson.GsonConverterFactory.create())
                 .build()
 
             val apiService = retrofit.create(com.meirini.tbs_prediction.network.ApiService::class.java)
 
-            // 2. Bungkus 3 inputan Admin
+            // 2. Bungkus inputan Admin yang udah jadi desimal murni
             val requestData = com.meirini.tbs_prediction.network.TbsRequest(
-                cpo = hargaCPO.toInt(),
-                kernel = hargaKernel.toInt(),
-                indeksK = indeksK.toDouble()
+                cpo = cpoVal,
+                kernel = kernelVal,
+                indeksK = indeksKVal
             )
 
-            // 3. Tembak ke API Flask Mei!
+            // 3. Tembak ke API Flask!
             apiService.getPrediksiTbs(requestData).enqueue(object : retrofit2.Callback<com.meirini.tbs_prediction.network.TbsResponse> {
                 override fun onResponse(call: retrofit2.Call<com.meirini.tbs_prediction.network.TbsResponse>, response: retrofit2.Response<com.meirini.tbs_prediction.network.TbsResponse>) {
                     if (response.isSuccessful && response.body() != null) {
@@ -94,9 +100,9 @@ class AdminFragment : Fragment() {
 
                             val paketDataResmi = hashMapOf(
                                 "tanggal_update" to tanggalUpdate,
-                                "cpo_global" to hargaCPO.toInt(),
-                                "kernel_global" to hargaKernel.toInt(),
-                                "indeks_k" to indeksK.toDouble(),
+                                "cpo_global" to cpoVal,
+                                "kernel_global" to kernelVal,
+                                "indeks_k" to indeksKVal,
                                 "daftar_harga" to daftarHargaAsli
                             )
 
@@ -104,6 +110,16 @@ class AdminFragment : Fragment() {
                             firestore.collection("Harga_Resmi").document("terkini")
                                 .set(paketDataResmi)
                                 .addOnSuccessListener {
+
+                                    // ==========================================
+                                    // TAMBAHAN: Catat juga ke dalam "Buku Sejarah" (Riwayat_Update)
+                                    // ==========================================
+                                    val dataRiwayat = paketDataResmi.toMutableMap()
+                                    dataRiwayat["timestamp"] = System.currentTimeMillis()
+
+                                    firestore.collection("Riwayat_Update").add(dataRiwayat)
+                                    // ==========================================
+
                                     Toast.makeText(requireContext(), "SUKSES! AI Selesai Menghitung & Data Di-Update.", Toast.LENGTH_LONG).show()
                                     etIndeksK.text.clear()
                                     etHargaCPO.text.clear()
@@ -111,7 +127,9 @@ class AdminFragment : Fragment() {
                                 }
                         }
                     } else {
-                        Toast.makeText(requireContext(), "Gagal membaca AI. Server membalas error.", Toast.LENGTH_SHORT).show()
+                        // Minta Android membongkar isi pesan error dari server
+                        val isiError = response.errorBody()?.string() ?: "Error tak terbaca"
+                        Toast.makeText(requireContext(), "Laporan Server: $isiError", Toast.LENGTH_LONG).show()
                     }
                 }
 
@@ -122,11 +140,17 @@ class AdminFragment : Fragment() {
         }
     }
 
-    // FUNGSI MENARIK LOG DATA PANEN PETANI DARI FIREBASE
+    // FUNGSI MENARIK LOG DATA PANEN PETANI DARI FIREBASE (TETAP SAMA UNTUK DASHBOARD)
     private fun loadLogTimbanganPetani() {
         firestore.collection("Riwayat_Panen")
             .orderBy("timestamp", Query.Direction.DESCENDING)
             .addSnapshotListener { snapshots, e ->
+
+                // SABUK PENGAMAN: Kalau fragment udah mati/pindah halaman (misal karena logout), hentikan proses ini!
+                if (!isAdded || context == null) {
+                    return@addSnapshotListener
+                }
+
                 if (e != null) {
                     Toast.makeText(requireContext(), "Gagal memuat log: ${e.message}", Toast.LENGTH_SHORT).show()
                     return@addSnapshotListener
