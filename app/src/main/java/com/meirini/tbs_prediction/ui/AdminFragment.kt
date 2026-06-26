@@ -13,6 +13,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.Query
 import com.meirini.tbs_prediction.R
+import com.meirini.tbs_prediction.adapter.LogPanenAdapter
 import java.text.SimpleDateFormat
 import java.util.Date
 import java.util.Locale

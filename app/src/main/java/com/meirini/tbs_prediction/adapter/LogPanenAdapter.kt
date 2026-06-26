@@ -1,4 +1,4 @@
-package com.meirini.tbs_prediction.ui
+package com.meirini.tbs_prediction.adapter
 
 import android.view.LayoutInflater
 import android.view.View
@@ -6,6 +6,7 @@ import android.view.ViewGroup
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.meirini.tbs_prediction.R
+import com.meirini.tbs_prediction.ui.LogPanen
 import java.text.NumberFormat
 import java.util.Locale
 

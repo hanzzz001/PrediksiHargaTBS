@@ -1,4 +1,4 @@
-package com.meirini.tbs_prediction.ui
+package com.meirini.tbs_prediction.adapter
 
 import android.view.LayoutInflater
 import android.view.View
@@ -6,15 +6,7 @@ import android.view.ViewGroup
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.meirini.tbs_prediction.R
-
-// Model Data
-data class DataRiwayatUpdate(
-    val tanggalString: String,
-    val cpo: Int,
-    val kernel: Int,
-    val indeksK: Double,
-    val timestamp: Long
-)
+import com.meirini.tbs_prediction.data.DataRiwayatUpdate
 
 // Adapter
 class RiwayatUpdateAdapter(private val listData: ArrayList<DataRiwayatUpdate>) :

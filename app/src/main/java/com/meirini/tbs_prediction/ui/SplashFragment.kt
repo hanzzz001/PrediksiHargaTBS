@@ -26,7 +26,7 @@ class SplashFragment : Fragment() {
         Handler(Looper.getMainLooper()).postDelayed({
             // INI GEMBOK PENGAMANNYA: Cek apakah fragment masih aktif di layar
             if (isAdded) {
-                // Pastikan ID action ini sesuai dengan yang ada di nav_graph.xml milikmu
+                // Pastikan ID action ini sesuai dengan yang ada di nav_graph.xml
                 findNavController().navigate(R.id.action_splashFragment_to_loginFragment)
             }
         }, 2000)

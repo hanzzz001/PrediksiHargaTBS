@@ -11,6 +11,8 @@ import androidx.recyclerview.widget.RecyclerView
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.Query
 import com.meirini.tbs_prediction.R
+import com.meirini.tbs_prediction.adapter.RiwayatUpdateAdapter
+import com.meirini.tbs_prediction.data.DataRiwayatUpdate
 
 class RiwayatAdminFragment : Fragment() {
 

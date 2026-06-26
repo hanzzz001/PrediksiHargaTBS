@@ -26,7 +26,7 @@ data class TbsResponse(
 // 3. Struktur per item harga dari ke-13 umur tersebut
 data class HargaPrediksi(
     @SerializedName("umur_tanaman")
-    val umurTanaman: Int, // Contoh: 3, 4, 5... (10 untuk 10-20 tahun)
+    val umurTanaman: Int, //
 
     @SerializedName("harga_tbs")
     val hargaTbs: Double
