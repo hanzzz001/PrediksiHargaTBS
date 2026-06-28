@@ -64,7 +64,7 @@ class PrediksiFragment : Fragment() {
             .addOnSuccessListener { doc ->
                 if (doc != null && doc.exists()) {
                     daftarHargaResmi = doc.get("daftar_harga") as List<HashMap<String, Any>>
-                    // Opsional: Kalau mau notif saat sinkronisasi sukses juga pakai Snackbar, bisa diganti di sini.
+
                     Toast.makeText(requireContext(), "Data Harga Resmi Berhasil Disinkronisasi!", Toast.LENGTH_SHORT).show()
                 } else {
                     Toast.makeText(requireContext(), "Belum ada data harga dari Admin.", Toast.LENGTH_SHORT).show()

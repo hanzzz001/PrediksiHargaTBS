@@ -113,7 +113,7 @@ class AdminFragment : Fragment() {
                                 .addOnSuccessListener {
 
                                     // ==========================================
-                                    // TAMBAHAN: Catat juga ke dalam "Buku Sejarah" (Riwayat_Update)
+                                    // TAMBAHAN: Catat juga ke dalam "Buku Sejarah"
                                     // ==========================================
                                     val dataRiwayat = paketDataResmi.toMutableMap()
                                     dataRiwayat["timestamp"] = System.currentTimeMillis()
@@ -147,7 +147,7 @@ class AdminFragment : Fragment() {
             .orderBy("timestamp", Query.Direction.DESCENDING)
             .addSnapshotListener { snapshots, e ->
 
-                // SABUK PENGAMAN: Kalau fragment udah mati/pindah halaman (misal karena logout), hentikan proses ini!
+                // SABUK PENGAMAN: Kalau fragment udah mati/pindah halaman
                 if (!isAdded || context == null) {
                     return@addSnapshotListener
                 }

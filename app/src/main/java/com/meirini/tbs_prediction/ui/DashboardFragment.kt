@@ -82,7 +82,7 @@ class DashboardFragment : Fragment() {
                     dataSet.mode = LineDataSet.Mode.CUBIC_BEZIER
 
                     // ==================================================
-                    // 🔴 INI OBATNYA: Matikan angka detail di atas titik
+                    // Matikan angka detail di atas titik
                     // ==================================================
                     dataSet.setDrawValues(false)
 
