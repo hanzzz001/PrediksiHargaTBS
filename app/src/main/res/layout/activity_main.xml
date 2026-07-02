@@ -34,18 +34,10 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Portal Prediksi TBS Sawit Harian Riau"
+                android:text="Simpatik-TBS"
                 android:textColor="#FFFFFF"
                 android:textSize="15sp"
                 android:textStyle="bold" />
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="2dp"
-                android:text="Estimasi Tren Real-Time Harian Berdasarkan Konformitas Data Disbun"
-                android:textColor="#E8F5E9"
-                android:textSize="10sp" />
         </LinearLayout>
 
         <ImageView

@@ -10,6 +10,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
+        <!-- HEADER HIJAU -->
         <View
             android:id="@+id/headerBg"
             android:layout_width="match_parent"
@@ -30,6 +31,7 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
+        <!-- CARD PROFIL INFO -->
         <androidx.cardview.widget.CardView
             android:id="@+id/cardProfileInfo"
             android:layout_width="match_parent"
@@ -94,19 +96,21 @@
             </LinearLayout>
         </androidx.cardview.widget.CardView>
 
+        <!-- LABEL BANTUAN & PANDUAN -->
         <TextView
             android:id="@+id/tvLabelPengaturan"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="24dp"
             android:layout_marginTop="32dp"
-            android:text="Pengaturan"
+            android:text="Bantuan &amp; Panduan"
             android:textColor="#333333"
             android:textSize="16sp"
             android:textStyle="bold"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/cardProfileInfo" />
 
+        <!-- CARD BANTUAN & PANDUAN -->
         <androidx.cardview.widget.CardView
             android:id="@+id/cardPengaturan"
             android:layout_width="match_parent"
@@ -122,8 +126,9 @@
                 android:layout_height="wrap_content"
                 android:orientation="vertical">
 
+                <!-- MENU PUSAT BANTUAN BARU -->
                 <LinearLayout
-                    android:id="@+id/btnEditProfil"
+                    android:id="@+id/btnPusatBantuan"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:background="?attr/selectableItemBackground"
@@ -134,7 +139,7 @@
                     <ImageView
                         android:layout_width="24dp"
                         android:layout_height="24dp"
-                        android:src="@android:drawable/ic_menu_edit"
+                        android:src="@android:drawable/ic_dialog_info"
                         app:tint="#888888" />
 
                     <TextView
@@ -142,7 +147,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginStart="16dp"
                         android:layout_weight="1"
-                        android:text="Ubah Data Diri"
+                        android:text="Pusat Bantuan"
                         android:textColor="#333333"
                         android:textSize="15sp" />
 
@@ -161,6 +166,7 @@
                     android:layout_marginHorizontal="16dp"
                     android:background="#EEEEEE" />
 
+                <!-- MENU PANDUAN APLIKASI -->
                 <LinearLayout
                     android:id="@+id/btnPanduan"
                     android:layout_width="match_parent"
@@ -196,19 +202,21 @@
             </LinearLayout>
         </androidx.cardview.widget.CardView>
 
+        <!-- LABEL AKSES AKUN -->
         <TextView
             android:id="@+id/tvLabelKeamanan"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="24dp"
             android:layout_marginTop="24dp"
-            android:text="Keamanan"
+            android:text="Sesi Akun"
             android:textColor="#333333"
             android:textSize="16sp"
             android:textStyle="bold"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/cardPengaturan" />
 
+        <!-- CARD AKSES AKUN (KHUSUS LOGOUT) -->
         <androidx.cardview.widget.CardView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -225,45 +233,7 @@
                 android:layout_height="wrap_content"
                 android:orientation="vertical">
 
-                <LinearLayout
-                    android:id="@+id/btnUbahPassword"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:background="?attr/selectableItemBackground"
-                    android:clickable="true"
-                    android:gravity="center_vertical"
-                    android:padding="16dp">
-
-                    <ImageView
-                        android:layout_width="24dp"
-                        android:layout_height="24dp"
-                        android:src="@android:drawable/ic_secure"
-                        app:tint="#888888" />
-
-                    <TextView
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_marginStart="16dp"
-                        android:layout_weight="1"
-                        android:text="Ubah Password"
-                        android:textColor="#333333"
-                        android:textSize="15sp" />
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text=">"
-                        android:textColor="#CCCCCC"
-                        android:textSize="18sp"
-                        android:textStyle="bold" />
-                </LinearLayout>
-
-                <View
-                    android:layout_width="match_parent"
-                    android:layout_height="1dp"
-                    android:layout_marginHorizontal="16dp"
-                    android:background="#EEEEEE" />
-
+                <!-- MENU LOGOUT -->
                 <LinearLayout
                     android:id="@+id/btnLogout"
                     android:layout_width="match_parent"
@@ -277,15 +247,17 @@
                         android:layout_width="24dp"
                         android:layout_height="24dp"
                         android:src="@android:drawable/ic_lock_power_off"
-                        app:tint="#D32F2F" /> <TextView
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="16dp"
-                    android:layout_weight="1"
-                    android:text="Keluar dari Akun"
-                    android:textColor="#D32F2F"
-                    android:textSize="15sp"
-                    android:textStyle="bold" />
+                        app:tint="#D32F2F" />
+
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="16dp"
+                        android:layout_weight="1"
+                        android:text="Keluar dari Akun"
+                        android:textColor="#D32F2F"
+                        android:textSize="15sp"
+                        android:textStyle="bold" />
                 </LinearLayout>
             </LinearLayout>
         </androidx.cardview.widget.CardView>

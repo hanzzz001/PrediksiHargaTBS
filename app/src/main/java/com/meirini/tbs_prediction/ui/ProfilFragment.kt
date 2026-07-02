@@ -8,6 +8,7 @@ import android.view.ViewGroup
 import android.widget.LinearLayout
 import android.widget.TextView
 import android.widget.Toast
+import androidx.appcompat.app.AlertDialog
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import com.google.firebase.auth.FirebaseAuth
@@ -29,9 +30,9 @@ class ProfilFragment : Fragment() {
         val tvEmail = view.findViewById<TextView>(R.id.tvProfilEmail)
         val tvInisial = view.findViewById<TextView>(R.id.tvInisial)
 
-        val btnEditProfil = view.findViewById<LinearLayout>(R.id.btnEditProfil)
+        // Bind ID baru, buang ID tombol yang udah dihapus di XML
+        val btnPusatBantuan = view.findViewById<LinearLayout>(R.id.btnPusatBantuan)
         val btnPanduan = view.findViewById<LinearLayout>(R.id.btnPanduan)
-        val btnUbahPassword = view.findViewById<LinearLayout>(R.id.btnUbahPassword)
         val btnLogout = view.findViewById<LinearLayout>(R.id.btnLogout)
 
         // 1. Ambil Email dari Firebase
@@ -54,16 +55,30 @@ class ProfilFragment : Fragment() {
         }
 
         // 3. AKSI TOMBOL-TOMBOL MENU
-        btnEditProfil.setOnClickListener {
-            Toast.makeText(requireContext(), "Fitur Ubah Data Diri segera hadir!", Toast.LENGTH_SHORT).show()
+
+        // Aksi Pop-up Pusat Bantuan
+        btnPusatBantuan.setOnClickListener {
+            val pesanBantuan = """
+                Jika Anda mengalami kendala saat menggunakan aplikasi atau menemukan ketidaksesuaian data harga TBS, silakan hubungi Layanan Admin kami melalui:
+                
+                WhatsApp : 0812-3456-7890
+                Email : admin.tbs@disbun.riau.go.id
+                
+                Jam Operasional: Senin - Jumat (08.00 - 16.00 WIB)
+            """.trimIndent()
+
+            AlertDialog.Builder(requireContext())
+                .setTitle("Pusat Bantuan")
+                .setMessage(pesanBantuan)
+                .setIcon(android.R.drawable.ic_dialog_info)
+                .setPositiveButton("TUTUP") { dialog, _ ->
+                    dialog.dismiss()
+                }
+                .show()
         }
 
         btnPanduan.setOnClickListener {
             Toast.makeText(requireContext(), "Portal Prediksi TBS v1.0.0", Toast.LENGTH_SHORT).show()
-        }
-
-        btnUbahPassword.setOnClickListener {
-            Toast.makeText(requireContext(), "Fitur Ubah Password dalam tahap pengembangan.", Toast.LENGTH_SHORT).show()
         }
 
         // FUNGSI LOGOUT (Pindahan dari MainActivity)
